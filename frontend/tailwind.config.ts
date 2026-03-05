@@ -42,6 +42,9 @@ const config: Config = {
         glow: '0 0 24px rgba(201, 162, 39, 0.2)',
         'glow-lg': '0 0 40px rgba(201, 162, 39, 0.25)',
       },
+      backgroundImage: {
+        'gradient-mystical': 'linear-gradient(135deg, #0c0a14 0%, #1e1932 30%, #2d2647 60%, #0c0a14 100%)',
+      },
       keyframes: {
         'fade-in': {
           '0%': { opacity: '0', transform: 'translateY(12px)' },

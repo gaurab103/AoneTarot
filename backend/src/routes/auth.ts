@@ -18,9 +18,9 @@ const loginSchema = z.object({
   password: z.string(),
 });
 
-function generateToken(userId: string, email: string) {
+function generateToken(userId: string, email: string, role: string) {
   return jwt.sign(
-    { userId, email },
+    { userId, email, role },
     process.env.JWT_SECRET!,
     { expiresIn: '7d' }
   );
@@ -44,7 +44,7 @@ router.post('/signup', async (req, res) => {
       select: { id: true, name: true, email: true, role: true },
     });
 
-    const token = generateToken(user.id, user.email);
+    const token = generateToken(user.id, user.email, user.role);
     res.status(201).json({ user, token });
   } catch (e) {
     if (e instanceof z.ZodError) {
@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    const token = generateToken(user.id, user.email);
+    const token = generateToken(user.id, user.email, user.role);
     res.json({
       user: { id: user.id, name: user.name, email: user.email, role: user.role },
       token,

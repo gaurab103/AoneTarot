@@ -9,6 +9,7 @@ import { paymentRoutes } from './routes/payments';
 import { reviewRoutes } from './routes/reviews';
 import { messageRoutes } from './routes/messages';
 import { adminRoutes } from './routes/admin';
+import { contactRoutes } from './routes/contact';
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/contact', contactRoutes);
 
 app.use((err: Error, _req: express.Request, res: express.Response) => {
   console.error(err);

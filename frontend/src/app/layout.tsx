@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import './globals.css';
@@ -26,12 +26,18 @@ export const metadata: Metadata = {
   description:
     'Experience mystical tarot readings with A One Tarot. Yes/No, Love, Career, and Detailed readings. Book your session today.',
   keywords: ['tarot', 'reading', 'spiritual', 'guidance', 'love reading', 'career reading'],
-  themeColor: [{ media: '(prefers-color-scheme: dark)', color: '#c9a227' }, { media: '(prefers-color-scheme: light)', color: '#a67c00' }],
   openGraph: {
     title: 'A One Tarot | Professional Tarot Readings',
     description: 'Experience mystical tarot readings. Book your session today.',
   },
   appleWebApp: { capable: true, statusBarStyle: 'default', title: 'A One Tarot' },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#c9a227' },
+    { media: '(prefers-color-scheme: light)', color: '#a67c00' },
+  ],
 };
 
 export default function RootLayout({

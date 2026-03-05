@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { io, Socket } from 'socket.io-client';
 import { Send } from 'lucide-react';
-import { getApiUrl } from '@/lib/api';
+import { getApiUrl, getSocketUrl } from '@/lib/api';
 import { useAuthStore } from '@/store/auth-store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -35,8 +35,7 @@ export default function ChatPage() {
       return;
     }
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-    const s = io(apiUrl, { auth: { token } });
+    const s = io(getSocketUrl(), { auth: { token } });
     setSocket(s);
 
     s.on('connect', () => {

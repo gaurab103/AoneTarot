@@ -15,7 +15,8 @@ git add -A && git commit -m "Updates" && git push
 1. Go to [vercel.com](https://vercel.com) → **Sign up** or **Log in**
 2. Click **Add New** → **Project**
 3. **Import** the repo: `gaurab103/AoneTarot`
-4. Vercel will detect Next.js and use the `frontend` folder (from `vercel.json`)
+4. **Root Directory:** leave empty (repo root) – the build needs access to both `backend` and `frontend`
+5. Framework will be detected as Next.js; the custom build in `vercel.json` handles backend + frontend
 
 ---
 

@@ -9,6 +9,12 @@ export function getApiUrl(path: string) {
   return `http://localhost:4000${p}`;
 }
 
+/** Base URL for Socket.io (same as API origin). */
+export function getSocketUrl(): string {
+  const url = getApiUrl('/');
+  return url.replace(/\/$/, '');
+}
+
 export async function api<T>(
   path: string,
   options: RequestInit & { token?: string } = {}

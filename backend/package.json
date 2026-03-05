@@ -5,8 +5,7 @@
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./app": "./dist/app.js",
-    "./src/app": "./src/app.ts"
+    "./app": "./dist/app.js"
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",

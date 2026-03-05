@@ -15,8 +15,8 @@ export function setupSocketHandlers(io: Server) {
     if (!token) return next(new Error('Authentication required'));
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string; email: string };
-      (socket as any).user = decoded;
+      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string; email: string; role?: string };
+      (socket as any).user = { ...decoded, role: decoded.role || 'USER' };
       next();
     } catch {
       next(new Error('Invalid token'));

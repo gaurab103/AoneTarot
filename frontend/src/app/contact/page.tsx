@@ -6,13 +6,35 @@ import { Mail, Phone, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { getApiUrl } from '@/lib/api';
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setError(null);
+    const form = e.currentTarget;
+    const name = (form.elements.namedItem('name') as HTMLInputElement).value;
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+    const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
+    setLoading(true);
+    try {
+      const res = await fetch(getApiUrl('/api/contact'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Failed to send');
+      setSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send message');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,8 +77,8 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="font-medium text-gold">Phone</p>
-                <a href="tel:9408083147" className="text-white/80 hover:text-gold transition-colors">
-                  +9408083147
+                <a href="tel:+919408083147" className="text-white/80 hover:text-gold transition-colors">
+                  +91 9408083147
                 </a>
               </div>
             </div>
@@ -69,6 +91,9 @@ export default function ContactPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
+              {error && (
+                <p className="text-red-400 text-sm">{error}</p>
+              )}
               <div>
                 <Label htmlFor="name">Name</Label>
                 <Input id="name" name="name" placeholder="Your name" required className="mt-2" />
@@ -88,9 +113,9 @@ export default function ContactPage() {
                   className="mt-2 flex w-full rounded-xl border border-gold/30 bg-primary-50/20 px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-gold"
                 />
               </div>
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" disabled={loading}>
                 <Send className="w-4 h-4 mr-2" />
-                Send Message
+                {loading ? 'Sending...' : 'Send Message'}
               </Button>
             </form>
           )}
