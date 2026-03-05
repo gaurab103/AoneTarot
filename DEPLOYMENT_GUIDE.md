@@ -15,8 +15,9 @@ git add -A && git commit -m "Updates" && git push
 1. Go to [vercel.com](https://vercel.com) → **Sign up** or **Log in**
 2. Click **Add New** → **Project**
 3. **Import** the repo: `gaurab103/AoneTarot`
-4. **Root Directory:** set to `frontend` (required – Next.js lives here)
-5. Framework will auto-detect as Next.js; the custom build runs Prisma + backend, then Next.js
+4. **Root Directory:** set to `frontend` (required)
+5. Enable **Include source files outside of the Root Directory** (Settings → Root Directory – on by default for new projects)
+6. Custom build runs backend first, then Next.js
 
 ---
 
