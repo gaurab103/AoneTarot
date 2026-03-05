@@ -15,26 +15,25 @@ git add -A && git commit -m "Updates" && git push
 1. Go to [vercel.com](https://vercel.com) → **Sign up** or **Log in**
 2. Click **Add New** → **Project**
 3. **Import** the repo: `gaurab103/AoneTarot`
-4. **Root Directory:** set to `frontend` (required)
-5. Enable **Include source files outside of the Root Directory** (Settings → Root Directory – on by default for new projects)
-6. Custom build runs backend first, then Next.js
+4. **Root Directory:** set to `frontend`
+5. Enable **Include source files outside of the Root Directory** (on by default)
+6. Click **Deploy** – no env vars needed. Built-in demo DB and JWT work out of the box.
 
 ---
 
-## Step 3: Add Environment Variables
+## Optional: Use Your Own Database
 
-Before deploying, add these in **Settings** → **Environment Variables**:
+Add these in **Settings** → **Environment Variables** to override defaults:
 
-| Variable | Value | Required |
-|----------|-------|----------|
-| `DATABASE_URL` | Your Supabase PostgreSQL connection string | Yes |
-| `JWT_SECRET` | A long random string (e.g. from `openssl rand -hex 32`) | Yes |
-| `PAYPAL_CLIENT_ID` | Your PayPal Client ID | Yes |
-| `PAYPAL_CLIENT_SECRET` | Your PayPal Client Secret | Yes |
-| `PAYPAL_LIVE` | `false` (use `true` for live payments) | No |
-| `NEXT_PUBLIC_PAYPAL_CLIENT_ID` | Same as PAYPAL_CLIENT_ID (for frontend) | Yes |
+| Variable | Value |
+|----------|-------|
+| `DATABASE_URL` | Your Supabase/Neon PostgreSQL connection string |
+| `JWT_SECRET` | A long random string |
+| `PAYPAL_CLIENT_ID` | Your PayPal Client ID |
+| `PAYPAL_CLIENT_SECRET` | Your PayPal Client Secret |
+| `NEXT_PUBLIC_PAYPAL_CLIENT_ID` | Same as PAYPAL_CLIENT_ID |
 
-**Do not set** `NEXT_PUBLIC_API_URL` – the app uses the same origin on Vercel.
+**Note:** Demo DB expires in 72h. [Claim it](https://pg.new/claim/019cbf6d-6bf2-7365-adc1-5d2f182b3183) for permanent use.
 
 ---
 
