@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme variables - Dark (default) */
+:root,
+.dark {
+  --bg: #0c0a14;
+  --bg-card: rgba(30, 25, 50, 0.6);
+  --bg-card-hover: rgba(45, 38, 70, 0.7);
+  --text: #f8f7fc;
+  --text-muted: rgba(248, 247, 252, 0.7);
+  --accent: #c9a227;
+  --accent-light: #e5c76b;
+  --accent-muted: rgba(201, 162, 39, 0.3);
+  --border: rgba(201, 162, 39, 0.25);
+  --header-bg: rgba(12, 10, 20, 0.92);
+  --section-alt: rgba(30, 25, 50, 0.15);
+}
+
+/* Light theme */
+.light {
+  --bg: #faf8f5;
+  --bg-card: rgba(255, 252, 248, 0.9);
+  --bg-card-hover: rgba(255, 250, 240, 0.95);
+  --text: #1a1625;
+  --text-muted: rgba(26, 22, 37, 0.7);
+  --accent: #a67c00;
+  --accent-light: #c9a227;
+  --accent-muted: rgba(166, 124, 0, 0.15);
+  --border: rgba(166, 124, 0, 0.2);
+  --header-bg: rgba(250, 248, 245, 0.95);
+  --section-alt: rgba(201, 162, 39, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body), 'DM Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-image: 
+    radial-gradient(ellipse 100% 60% at 50% 0%, rgba(30, 25, 50, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 100% 100%, rgba(201, 162, 39, 0.06) 0%, transparent 40%);
+}
+
+.light body {
+  background-image: 
+    radial-gradient(ellipse 100% 60% at 50% 0%, rgba(201, 162, 39, 0.04) 0%, transparent 50%);
+}
+
+::selection {
+  background-color: var(--accent-muted);
+  color: var(--text);
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .font-display {
+    font-family: var(--font-display), 'Cormorant Garamond', Georgia, serif;
+  }
+
+  .font-body {
+    font-family: var(--font-body), 'DM Sans', system-ui, sans-serif;
+  }
+
+  .card-base {
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+
+  .card-base:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(201, 162, 39, 0.35);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    color: #0c0a14;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(201, 162, 39, 0.25);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(201, 162, 39, 0.35);
+  }
+
+  .text-accent {
+    color: var(--accent);
+  }
+
+  .text-accent-light {
+    color: var(--accent-light);
+  }
+
+  .btn-glow {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    color: #0c0a14;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(201, 162, 39, 0.3);
+    transition: all 0.2s ease;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 6px 24px rgba(201, 162, 39, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .glass-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+
+  .glass-card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(201, 162, 39, 0.35);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes pwa-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.star {
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: pwa-fade-in 0.3s ease-out forwards;
+}

@@ -1,0 +1,139 @@
+// A One Tarot - Prisma Schema
+// Database: PostgreSQL (Supabase/Neon compatible)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+
+  bookings Booking[]
+  payments Payment[]
+  reviews  Review[]
+  messages Message[]
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String
+  price       Decimal? @db.Decimal(10, 2)
+  createdAt   DateTime @default(now())
+
+  options  ServiceOption[]
+  bookings Booking[]
+
+  @@index([slug])
+}
+
+model ServiceOption {
+  id            String   @id @default(cuid())
+  serviceId     String
+  slug          String   @unique
+  label         String
+  questionCount Int
+  price         Decimal  @db.Decimal(10, 2)
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@unique([serviceId, questionCount])
+  @@index([serviceId])
+}
+
+model Booking {
+  id              String        @id @default(cuid())
+  userId          String
+  serviceId       String
+  serviceOptionId String?
+  paymentId       String?
+  status          BookingStatus @default(PENDING)
+  scheduledAt     DateTime?
+  createdAt       DateTime      @default(now())
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service Service  @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+  payment Payment?
+  reviews Review[]
+  messages Message[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([scheduledAt])
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  userId        String
+  bookingId     String        @unique
+  paypalOrderId String?
+  amount        Decimal       @db.Decimal(10, 2)
+  status        PaymentStatus @default(PENDING)
+  createdAt     DateTime      @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([paypalOrderId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  bookingId String
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, bookingId])
+  @@index([bookingId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  bookingId String
+  senderId  String
+  content   String
+  createdAt DateTime @default(now())
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  sender  User    @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+}
