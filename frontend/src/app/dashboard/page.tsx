@@ -40,7 +40,7 @@ function DashboardContent() {
       .finally(() => setLoading(false));
   }, [token, router]);
 
-  const success = searchParams.get('success');
+  const success = searchParams?.get('success');
 
   if (!user) return null;
 

@@ -10,22 +10,7 @@ router.get('/', async (_req, res) => {
     include: {
       options: {
         orderBy: { sortOrder: 'asc' },
-        select: {
-          id: true,
-          slug: true,
-          label: true,
-          questionCount: true,
-          price: true,
-        },
       },
-    },
-    select: {
-      id: true,
-      slug: true,
-      name: true,
-      description: true,
-      price: true,
-      options: true,
     },
   });
   res.json(services);

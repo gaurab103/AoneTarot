@@ -23,7 +23,7 @@ type FormData = z.infer<typeof schema>;
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect') || '/dashboard';
+  const redirect = searchParams?.get('redirect') || '/dashboard';
   const setAuth = useAuthStore((s) => s.setAuth);
   const [error, setError] = useState('');
 

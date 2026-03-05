@@ -8,9 +8,7 @@ const nextConfig = {
     ],
   },
   webpack: (config, { dev }) => {
-    if (dev) {
-      config.cache = false;
-    }
+    if (dev) config.cache = false;
     return config;
   },
   async headers() {

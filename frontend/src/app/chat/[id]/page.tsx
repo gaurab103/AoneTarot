@@ -21,7 +21,7 @@ export default function ChatPage() {
   const router = useRouter();
   const token = useAuthStore((s) => s.token);
   const user = useAuthStore((s) => s.user);
-  const bookingId = params.id as string;
+  const bookingId = params?.id as string;
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');

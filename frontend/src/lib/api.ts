@@ -1,7 +1,12 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+// Vercel: no NEXT_PUBLIC_API_URL = same origin. Local: set to http://localhost:4000
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 export function getApiUrl(path: string) {
-  return `${API_URL}${path.startsWith('/') ? path : `/${path}`}`;
+  const p = path.startsWith('/') ? path : `/${path}`;
+  if (API_URL) return `${API_URL}${p}`;
+  if (typeof window !== 'undefined') return p;
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}${p}`;
+  return `http://localhost:4000${p}`;
 }
 
 export async function api<T>(

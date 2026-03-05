@@ -22,7 +22,7 @@ export default function ReviewPage() {
   const params = useParams();
   const router = useRouter();
   const token = useAuthStore((s) => s.token);
-  const bookingId = params.id as string;
+  const bookingId = params?.id as string;
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');

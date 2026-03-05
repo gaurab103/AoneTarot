@@ -46,7 +46,7 @@ function BookContent() {
   const [paypalReady, setPaypalReady] = useState(false);
   const [processing, setProcessing] = useState(false);
 
-  const preselected = searchParams.get('service');
+  const preselected = searchParams?.get('service');
 
   useEffect(() => {
     if (!token) {

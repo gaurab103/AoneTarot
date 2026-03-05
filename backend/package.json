@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "A One Tarot - Backend API",
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./app": "./dist/app.js",
+    "./src/app": "./src/app.ts"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
