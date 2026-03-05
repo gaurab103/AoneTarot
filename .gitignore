@@ -39,5 +39,4 @@ Thumbs.db
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
 
-# Prisma
-backend/prisma/migrations/
+# Prisma (migrations are committed for deploy)
