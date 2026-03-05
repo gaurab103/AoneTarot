@@ -1,0 +1,26 @@
+# Render Blueprint - Deploy frontend + backend from one repo
+# Push to GitHub, then: Render Dashboard -> New -> Blueprint -> Connect repo
+# Set DATABASE_URL, JWT_SECRET, PAYPAL_* in each service after first deploy
+# Set FRONTEND_URL on api = your frontend URL (e.g. https://aone-tarot.onrender.com)
+# Set NEXT_PUBLIC_API_URL on frontend = your api URL (e.g. https://aone-tarot-api.onrender.com)
+
+services:
+  - type: web
+    name: aone-tarot-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+  - type: web
+    name: aone-tarot
+    runtime: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production

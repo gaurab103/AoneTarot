@@ -55,44 +55,29 @@ Professional tarot reading platform with Next.js 14 frontend and Express backend
 - Frontend: http://localhost:3000  
 - Backend: http://localhost:4000  
 
-## Deploy to Vercel
+## Deploy Everything at Once (Render)
 
-### Frontend (Vercel)
+**Single push deploys both frontend and backend.**
 
-1. Push code to [GitHub](https://github.com/gaurab103/AoneTarot)
-2. Go to [vercel.com](https://vercel.com) → New Project → Import `gaurab103/AoneTarot`
-3. **Root Directory**: `frontend` (or leave as-is if using `vercel.json`)
-4. **Environment Variables**:
-   - `NEXT_PUBLIC_API_URL` = your backend URL (e.g. `https://your-backend.railway.app`)
-5. Deploy
+1. Push to [GitHub](https://github.com/gaurab103/AoneTarot)
+2. Go to [render.com](https://render.com) → **New** → **Blueprint**
+3. Connect `gaurab103/AoneTarot` repo
+4. Render reads `render.yaml` and creates both services
+5. Add env vars in Render Dashboard:
+   - **aone-tarot-api**: `DATABASE_URL`, `JWT_SECRET`, `FRONTEND_URL` (frontend URL after deploy), `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET`
+   - **aone-tarot**: `NEXT_PUBLIC_API_URL` (api URL, e.g. `https://aone-tarot-api.onrender.com`)
+6. Deploy both
 
-### Backend (Railway / Render)
+## Deploy to Vercel (Frontend only)
 
-The backend must be deployed separately (Vercel is for frontend only).
-
-**Railway**
-
-1. [railway.app](https://railway.app) → New Project → Deploy from GitHub
-2. Select `backend` folder or set root to `backend`
-3. Add env vars: `DATABASE_URL`, `JWT_SECRET`, `FRONTEND_URL` (your Vercel URL), `PAYPAL_*`
-4. Add PostgreSQL or connect Supabase
-5. Build: `npm run build` | Start: `npm start`
-
-**Render**
-
-1. [render.com](https://render.com) → New Web Service
-2. Connect repo, set root to `backend`
-3. Build: `npm install && npx prisma generate && npm run build`
-4. Start: `npm start`
-5. Add env vars
+1. [vercel.com](https://vercel.com) → New Project → Import `gaurab103/AoneTarot`
+2. **Root Directory**: `frontend`
+3. **Env**: `NEXT_PUBLIC_API_URL` = your backend URL
+4. Deploy (backend must be on Railway/Render)
 
 ### CORS
 
-Set `FRONTEND_URL` on the backend to your Vercel URL, e.g.:
-```
-FRONTEND_URL=https://aone-tarot.vercel.app
-```
-Multiple origins: `https://aone-tarot.vercel.app,https://aone-tarot-git-main.vercel.app`
+Set `FRONTEND_URL` on the backend to your frontend URL. Backend allows `*.vercel.app` and `*.onrender.com` automatically.
 
 ## Project Structure
 

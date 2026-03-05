@@ -25,7 +25,9 @@ const io = new Server(httpServer, {
   cors: {
     origin: (origin, cb) => {
       if (!origin) return cb(null, true);
-      const ok = ioOrigins.some((o) => origin === o || origin.startsWith(o.replace(/\/$/, '') + '/')) || origin.endsWith('.vercel.app');
+      const ok = ioOrigins.some((o) => origin === o || origin.startsWith(o.replace(/\/$/, '') + '/'))
+        || origin.endsWith('.vercel.app')
+        || origin.endsWith('.onrender.com');
       cb(null, ok);
     },
     methods: ['GET', 'POST'],
@@ -45,8 +47,8 @@ app.use(
     origin: (origin, cb) => {
       if (!origin) return cb(null, true);
       const fromList = allowedOrigins.some((o) => origin === o || origin.startsWith(o.replace(/\/$/, '') + '/'));
-      const isVercel = origin.endsWith('.vercel.app');
-      cb(null, fromList || isVercel);
+      const isAllowed = origin.endsWith('.vercel.app') || origin.endsWith('.onrender.com');
+      cb(null, fromList || isAllowed);
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
