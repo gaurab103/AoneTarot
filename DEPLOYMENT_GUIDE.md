@@ -33,7 +33,7 @@ Add these in **Settings** → **Environment Variables** to override defaults:
 | `PAYPAL_CLIENT_SECRET` | Your PayPal Client Secret |
 | `NEXT_PUBLIC_PAYPAL_CLIENT_ID` | Same as PAYPAL_CLIENT_ID |
 
-**Note:** Demo DB expires in 72h. [Claim it](https://pg.new/claim/019cbf6d-6bf2-7365-adc1-5d2f182b3183) for permanent use.
+**Note:** Credentials are in `env.defaults` and `frontend/env.production.js`. Keep the repo private.
 
 ---
 

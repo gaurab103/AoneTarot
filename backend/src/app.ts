@@ -1,15 +1,3 @@
-// Zero-config defaults when env vars not set (import and deploy)
-if (!process.env.DATABASE_URL) {
-  process.env.DATABASE_URL =
-    'postgresql://neondb_owner:npg_2yaBU8lpPtDw@ep-green-meadow-ajo8pi02-pooler.c-3.us-east-2.aws.neon.tech/neondb?channel_binding=require&sslmode=require';
-}
-if (!process.env.JWT_SECRET) {
-  process.env.JWT_SECRET = 'aone-tarot-demo-secret-change-in-production';
-}
-if (!process.env.PAYPAL_CLIENT_ID) process.env.PAYPAL_CLIENT_ID = '';
-if (!process.env.PAYPAL_CLIENT_SECRET) process.env.PAYPAL_CLIENT_SECRET = '';
-if (!process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID) process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = '';
-
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
